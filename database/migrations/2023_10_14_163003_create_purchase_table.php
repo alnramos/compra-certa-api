@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreatePurchaseTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('purchase', function (Blueprint $table) {
+            $table->id();
+            $table->integer('id_product');
+            $table->foreign('id_product')->references('id')->on('product');
+            $table->integer('id_establishment');
+            $table->foreign('id_establishment')->references('id')->on('establishment');
+            $table->integer('id_user');
+            $table->foreign('id_user')->references('id')->on('users');
+            $table->float('price')->nullable(true);
+            $table->dateTime('purchased_at')->nullable(true);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('purchase');
+    }
+}
